@@ -9,19 +9,16 @@
 body{
     margin:0;
     font-family:Arial, sans-serif;
-    background: url("nen.jpg") no-repeat center center fixed;
-    background-size: cover;
+    background:url("nen.jpg") no-repeat center center fixed;
+    background-size:cover;
     min-height:100vh;
     display:flex;
     flex-direction:column;
 }
 
-/* Lớp phủ tối */
 body::before{
     content:"";
     position:fixed;
-    top:0;
-    left:0;
     width:100%;
     height:100%;
     background:rgba(0,0,0,0.4);
@@ -37,12 +34,34 @@ header{
     font-weight:bold;
 }
 
+/* Chạy địa danh */
+.chay-dia-danh{
+    position:fixed;
+    top:10px;
+    left:-100%;
+    width:200%;
+    font-size:22px;
+    font-weight:bold;
+    white-space:nowrap;
+    background:linear-gradient(90deg, red, yellow, cyan, lime);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:2px 2px 5px black;
+    transform:rotate(-5deg);
+    animation:chayDoc 12s linear infinite;
+    z-index:999;
+    pointer-events:none;
+}
+@keyframes chayDoc{
+    0%{left:-100%;}
+    100%{left:100%;}
+}
+
 nav{
     background:rgba(0,0,0,0.6);
     text-align:center;
     padding:10px;
 }
-
 nav button{
     padding:8px 15px;
     margin:5px;
@@ -52,21 +71,10 @@ nav button{
     background:white;
     font-weight:bold;
 }
+nav button:hover{background:#ddd;}
 
-nav button:hover{
-    background:#ddd;
-}
-
-section{
-    display:none;
-    padding:30px;
-    text-align:center;
-    flex:1;
-}
-
-.active{
-    display:block;
-}
+section{display:none;padding:30px;text-align:center;flex:1;}
+.active{display:block;}
 
 .card{
     background:rgba(255,255,255,0.92);
@@ -76,7 +84,6 @@ section{
     border-radius:15px;
     box-shadow:0 4px 10px rgba(0,0,0,0.4);
 }
-
 .card img{
     width:100%;
     border-radius:10px;
@@ -90,10 +97,7 @@ section{
     margin:10px 0;
 }
 
-input{
-    padding:8px;
-    margin:5px;
-}
+input{padding:8px;margin:5px;}
 
 .book-btn{
     background:#009688;
@@ -104,7 +108,14 @@ input{
     cursor:pointer;
 }
 
-/* ===== FOOTER XUỐNG DƯỚI + ĐỔI MÀU ===== */
+/* Màu tên địa danh */
+#dalat h2{color:#e91e63;}
+#hanoi h2{color:#2196f3;}
+#nhatrang h2{color:#00bcd4;}
+#saigon h2{color:#ff9800;}
+#vungtau h2{color:#4caf50;}
+
+/* Footer */
 footer{
     background:rgba(0,0,0,0.8);
     text-align:center;
@@ -114,7 +125,6 @@ footer{
     animation:doimau 5s infinite;
     margin-top:auto;
 }
-
 @keyframes doimau{
     0%{color:red;}
     25%{color:yellow;}
@@ -126,25 +136,66 @@ footer{
 
 <script>
 function showSection(id){
-    var sections=document.querySelectorAll("section");
-    sections.forEach(function(sec){
-        sec.classList.remove("active");
-    });
+    document.querySelectorAll("section").forEach(sec=>sec.classList.remove("active"));
     document.getElementById(id).classList.add("active");
 }
 
-function tinhTien(gia, idInput, idKQ){
+function tinhTien(gia,idInput,idKQ){
     var soNguoi=document.getElementById(idInput).value;
-    var tong=gia * soNguoi;
-    document.getElementById(idKQ).innerHTML="Tổng tiền: " + tong.toLocaleString() + " VNĐ";
+    if(soNguoi<=0){alert("Nhập số hợp lệ!");return;}
+    var tong=gia*soNguoi;
+    document.getElementById(idKQ).innerHTML="Tổng tiền: "+tong.toLocaleString()+" VNĐ";
+}
+
+function dangKy(){
+    var u=dk_user.value,p=dk_pass.value;
+    if(u==""||p==""){tb.innerHTML="⚠ Nhập đủ thông tin!";tb.style.color="orange";return;}
+    localStorage.setItem("user",u);
+    localStorage.setItem("pass",p);
+    tb.innerHTML="🎉 Đăng ký thành công!";
+    tb.style.color="lime";
+}
+
+function dangNhap(){
+    var u=dn_user.value,p=dn_pass.value;
+    if(u==localStorage.getItem("user") && p==localStorage.getItem("pass")){
+        tb.innerHTML="✨ Đăng nhập thành công! Đang về Trang Chủ...";
+        tb.style.color="cyan";
+        localStorage.setItem("dangNhap","true");
+        accountBtn.innerHTML="Đăng Xuất";
+        setTimeout(()=>showSection("home"),1500);
+    }else{
+        tb.innerHTML="❌ Sai tài khoản hoặc mật khẩu!";
+        tb.style.color="red";
+    }
+}
+
+window.onload=function(){
+    if(localStorage.getItem("dangNhap")=="true"){
+        accountBtn.innerHTML="Đăng Xuất";
+    }
+}
+
+function moTaiKhoan(){
+    if(localStorage.getItem("dangNhap")=="true"){
+        localStorage.setItem("dangNhap","false");
+        accountBtn.innerHTML="Tài Khoản";
+        alert("Bạn đã đăng xuất!");
+        showSection("home");
+    }else{
+        showSection("login");
+    }
 }
 </script>
-
 </head>
 
 <body>
 
 <header>🌏 DU LỊCH CHECK-IN tại VIỆT NAM</header>
+
+<div class="chay-dia-danh">
+🌸 Đà Lạt ✈ Hà Nội 🌊 Nha Trang 🌆 Sài Gòn 🏖 Vũng Tàu 🌸
+</div>
 
 <nav>
 <button onclick="showSection('home')">Trang Chủ</button>
@@ -154,111 +205,106 @@ function tinhTien(gia, idInput, idKQ){
 <button onclick="showSection('nhatrang')">Nha Trang</button>
 <button onclick="showSection('saigon')">Sài Gòn</button>
 <button onclick="showSection('vungtau')">Vũng Tàu</button>
-<button onclick="showSection('login')">Đăng Nhập</button>
+<button id="accountBtn" onclick="moTaiKhoan()">Tài Khoản</button>
 </nav>
 
-<!-- TRANG CHỦ -->
 <section id="home" class="active">
 <div class="card">
 <h2>Khám phá vẻ đẹp Việt Nam</h2>
 <img src="banner.jpg">
-<p>Website cung cấp thông tin chi tiết về các địa điểm du lịch nổi tiếng tại Việt Nam và hỗ trợ đặt vé trực tuyến nhanh chóng.</p>
+<p>Website cung cấp thông tin chi tiết và đặt tour nhanh chóng.</p>
 </div>
 </section>
 
-<!-- GIỚI THIỆU -->
 <section id="about">
 <div class="card">
 <h2>Giới Thiệu</h2>
-<p>Check-in Việt Nam là website giới thiệu các địa danh nổi bật trên khắp cả nước.</p>
-<p>Chúng tôi cung cấp mô tả chi tiết, giá tour tham khảo và hỗ trợ tính toán chi phí theo số lượng người.</p>
-<p>Cam kết uy tín – chất lượng – giá hợp lý.</p>
+<p>Check-in Việt Nam giới thiệu các địa danh nổi bật và giá tour tham khảo trên toàn quốc.</p>
 </div>
 </section>
 
-<!-- ĐÀ LẠT -->
 <section id="dalat">
 <div class="card">
 <h2>Đà Lạt</h2>
 <img src="dalat.jpg">
-<p><b>Giới thiệu:</b> Đà Lạt thuộc tỉnh Lâm Đồng, nằm trên cao nguyên Lâm Viên với khí hậu mát mẻ quanh năm.</p>
-<p><b>Điểm nổi bật:</b> Hồ Xuân Hương, Đồi chè Cầu Đất, Thung lũng Tình Yêu, Nhà thờ Con Gà.</p>
-<p><b>Hoạt động:</b> Săn mây, check-in, thưởng thức đặc sản địa phương.</p>
+<p><b>Giới thiệu:</b> Thành phố sương mù thuộc Lâm Đồng, khí hậu mát mẻ quanh năm.</p>
+<p><b>Điểm nổi bật:</b> Hồ Xuân Hương, Đồi chè, Thung lũng Tình Yêu.</p>
 <div class="price">Giá tour: 2.500.000 VNĐ / người</div>
-<h3>🎟 Đặt vé</h3>
-<input type="number" id="sl1" placeholder="Số lượng người">
+<input type="number" id="sl1" placeholder="Số lượng">
 <button class="book-btn" onclick="tinhTien(2500000,'sl1','kq1')">Tính tiền</button>
 <p id="kq1"></p>
 </div>
 </section>
 
-<!-- HÀ NỘI -->
 <section id="hanoi">
 <div class="card">
 <h2>Hà Nội</h2>
 <img src="hanoi.jpg">
-<p><b>Giới thiệu:</b> Hà Nội là thủ đô nghìn năm văn hiến, trung tâm chính trị và văn hóa của Việt Nam.</p>
-<p><b>Địa điểm:</b> Hồ Hoàn Kiếm, Văn Miếu, Lăng Bác, Phố cổ.</p>
+<p><b>Giới thiệu:</b> Thủ đô nghìn năm văn hiến của Việt Nam.</p>
+<p><b>Địa điểm:</b> Hồ Hoàn Kiếm, Văn Miếu, Lăng Bác.</p>
 <div class="price">Giá tour: 3.000.000 VNĐ / người</div>
-<h3>🎟 Đặt vé</h3>
-<input type="number" id="sl2" placeholder="Số lượng người">
+<input type="number" id="sl2">
 <button class="book-btn" onclick="tinhTien(3000000,'sl2','kq2')">Tính tiền</button>
 <p id="kq2"></p>
 </div>
 </section>
 
-<!-- NHA TRANG -->
 <section id="nhatrang">
 <div class="card">
 <h2>Nha Trang</h2>
 <img src="nhatrang.jpg">
-<p><b>Giới thiệu:</b> Thành phố biển nổi tiếng với nước trong xanh và nhiều khu nghỉ dưỡng cao cấp.</p>
-<p><b>Hoạt động:</b> Lặn ngắm san hô, tham quan đảo, vui chơi giải trí.</p>
+<p><b>Giới thiệu:</b> Thành phố biển nổi tiếng với nước trong xanh.</p>
+<p><b>Hoạt động:</b> Lặn biển, tham quan đảo.</p>
 <div class="price">Giá tour: 3.200.000 VNĐ / người</div>
-<h3>🎟 Đặt vé</h3>
-<input type="number" id="sl3" placeholder="Số lượng người">
+<input type="number" id="sl3">
 <button class="book-btn" onclick="tinhTien(3200000,'sl3','kq3')">Tính tiền</button>
 <p id="kq3"></p>
 </div>
 </section>
 
-<!-- SÀI GÒN -->
 <section id="saigon">
 <div class="card">
 <h2>Sài Gòn</h2>
 <img src="saigon.jpg">
-<p><b>Giới thiệu:</b> Trung tâm kinh tế năng động nhất Việt Nam với nhịp sống sôi động.</p>
-<p><b>Địa điểm:</b> Landmark 81, Nhà thờ Đức Bà, Chợ Bến Thành.</p>
+<p><b>Giới thiệu:</b> Trung tâm kinh tế năng động nhất Việt Nam.</p>
+<p><b>Địa điểm:</b> Landmark 81, Chợ Bến Thành.</p>
 <div class="price">Giá tour: 2.800.000 VNĐ / người</div>
-<h3>🎟 Đặt vé</h3>
-<input type="number" id="sl4" placeholder="Số lượng người">
+<input type="number" id="sl4">
 <button class="book-btn" onclick="tinhTien(2800000,'sl4','kq4')">Tính tiền</button>
 <p id="kq4"></p>
 </div>
 </section>
 
-<!-- VŨNG TÀU -->
 <section id="vungtau">
 <div class="card">
 <h2>Vũng Tàu</h2>
 <img src="vungtau.jpg">
-<p><b>Giới thiệu:</b> Thành phố biển gần TP.HCM, phù hợp du lịch cuối tuần.</p>
-<p><b>Điểm tham quan:</b> Tượng Chúa Kitô, Hải đăng, Bãi Sau.</p>
+<p><b>Giới thiệu:</b> Thành phố biển gần TP.HCM, thích hợp du lịch cuối tuần.</p>
+<p><b>Điểm tham quan:</b> Tượng Chúa Kitô, Hải đăng.</p>
 <div class="price">Giá tour: 1.800.000 VNĐ / người</div>
-<h3>🎟 Đặt vé</h3>
-<input type="number" id="sl5" placeholder="Số lượng người">
+<input type="number" id="sl5">
 <button class="book-btn" onclick="tinhTien(1800000,'sl5','kq5')">Tính tiền</button>
 <p id="kq5"></p>
 </div>
 </section>
 
-<!-- ĐĂNG NHẬP -->
 <section id="login">
 <div class="card">
-<h2>Đăng Nhập</h2>
-<input type="text" placeholder="Tên đăng nhập"><br>
-<input type="password" placeholder="Mật khẩu"><br>
-<button class="book-btn">Đăng Nhập</button>
+<h2>🔐 Tài Khoản Thành Viên</h2>
+
+<h3>Đăng Ký</h3>
+<input type="text" id="dk_user"><br>
+<input type="password" id="dk_pass"><br>
+<button class="book-btn" onclick="dangKy()">Đăng Ký</button>
+
+<hr>
+
+<h3>Đăng Nhập</h3>
+<input type="text" id="dn_user"><br>
+<input type="password" id="dn_pass"><br>
+<button class="book-btn" onclick="dangNhap()">Đăng Nhập</button>
+
+<p id="tb"></p>
 </div>
 </section>
 
