@@ -6,186 +6,320 @@
 <title>Check-in Việt Nam</title>
 
 <style>
+
 body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:url("nen.jpg") no-repeat center center fixed;
-    background-size:cover;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
+margin:0;
+font-family:Arial;
+background:url("nen.jpg") no-repeat center center fixed;
+background-size:cover;
+min-height:100vh;
+display:flex;
+flex-direction:column;
 }
 
 body::before{
-    content:"";
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.4);
-    z-index:-1;
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+z-index:-1;
 }
 
 header{
-    background:rgba(0,0,0,0.7);
-    color:white;
-    padding:20px;
-    text-align:center;
-    font-size:28px;
-    font-weight:bold;
+background:rgba(0,0,0,0.7);
+color:white;
+padding:20px;
+text-align:center;
+font-size:28px;
+font-weight:bold;
 }
 
-/* Chạy địa danh */
+/* chữ địa danh chạy */
 .chay-dia-danh{
-    position:fixed;
-    top:10px;
-    left:-100%;
-    width:200%;
-    font-size:22px;
-    font-weight:bold;
-    white-space:nowrap;
-    background:linear-gradient(90deg, red, yellow, cyan, lime);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    text-shadow:2px 2px 5px black;
-    transform:rotate(-5deg);
-    animation:chayDoc 12s linear infinite;
-    z-index:999;
-    pointer-events:none;
+position:fixed;
+top:20px;
+right:-600px;
+font-size:18px;
+font-weight:bold;
+padding:8px 15px;
+border-radius:10px;
+background:linear-gradient(90deg, red, yellow, cyan, lime);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+text-shadow:2px 2px 5px black;
+white-space:nowrap;
+animation:chayngang 15s linear infinite;
+z-index:999;
 }
-@keyframes chayDoc{
-    0%{left:-100%;}
-    100%{left:100%;}
+
+@keyframes chayngang{
+0%{right:-600px;}
+100%{right:100%;}
 }
 
 nav{
-    background:rgba(0,0,0,0.6);
-    text-align:center;
-    padding:10px;
+background:rgba(0,0,0,0.6);
+text-align:center;
+padding:10px;
 }
-nav button{
-    padding:8px 15px;
-    margin:5px;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
-    background:white;
-    font-weight:bold;
-}
-nav button:hover{background:#ddd;}
 
-section{display:none;padding:30px;text-align:center;flex:1;}
-.active{display:block;}
+nav button{
+padding:8px 15px;
+margin:5px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+background:white;
+font-weight:bold;
+}
+
+nav button:hover{
+background:#ddd;
+}
+
+section{
+display:none;
+padding:30px;
+text-align:center;
+flex:1;
+}
+
+.active{
+display:block;
+}
 
 .card{
-    background:rgba(255,255,255,0.92);
-    max-width:900px;
-    margin:auto;
-    padding:20px;
-    border-radius:15px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.4);
+background:rgba(255,255,255,0.92);
+max-width:900px;
+margin:auto;
+padding:20px;
+border-radius:15px;
+box-shadow:0 4px 10px rgba(0,0,0,0.4);
+transition:0.3s;
 }
+
+.card:hover{
+transform:scale(1.03);
+}
+
 .card img{
-    width:100%;
-    border-radius:10px;
-    margin-bottom:15px;
+width:100%;
+border-radius:10px;
+margin-bottom:15px;
 }
 
 .price{
-    color:red;
-    font-size:20px;
-    font-weight:bold;
-    margin:10px 0;
+color:red;
+font-size:20px;
+font-weight:bold;
+margin:10px 0;
 }
 
-input{padding:8px;margin:5px;}
+input{
+padding:8px;
+margin:5px;
+}
 
 .book-btn{
-    background:#009688;
-    color:white;
-    border:none;
-    padding:10px 20px;
-    border-radius:5px;
-    cursor:pointer;
+background:#009688;
+color:white;
+border:none;
+padding:10px 20px;
+border-radius:5px;
+cursor:pointer;
+margin:5px;
 }
 
-/* Màu tên địa danh */
+/* màu tên */
 #dalat h2{color:#e91e63;}
 #hanoi h2{color:#2196f3;}
 #nhatrang h2{color:#00bcd4;}
 #saigon h2{color:#ff9800;}
 #vungtau h2{color:#4caf50;}
 
-/* Footer */
 footer{
-    background:rgba(0,0,0,0.8);
-    text-align:center;
-    padding:15px;
-    font-size:14px;
-    font-weight:bold;
-    animation:doimau 5s infinite;
-    margin-top:auto;
+background:rgba(0,0,0,0.8);
+text-align:center;
+padding:15px;
+font-size:14px;
+font-weight:bold;
+animation:doimau 5s infinite;
+margin-top:auto;
 }
+
 @keyframes doimau{
-    0%{color:red;}
-    25%{color:yellow;}
-    50%{color:cyan;}
-    75%{color:lime;}
-    100%{color:red;}
+0%{color:red;}
+25%{color:yellow;}
+50%{color:cyan;}
+75%{color:lime;}
+100%{color:red;}
 }
+
 </style>
 
 <script>
+
 function showSection(id){
-    document.querySelectorAll("section").forEach(sec=>sec.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
+document.querySelectorAll("section").forEach(function(sec){
+sec.classList.remove("active");
+});
+document.getElementById(id).classList.add("active");
 }
 
 function tinhTien(gia,idInput,idKQ){
-    var soNguoi=document.getElementById(idInput).value;
-    if(soNguoi<=0){alert("Nhập số hợp lệ!");return;}
-    var tong=gia*soNguoi;
-    document.getElementById(idKQ).innerHTML="Tổng tiền: "+tong.toLocaleString()+" VNĐ";
+
+var soNguoi=parseInt(document.getElementById(idInput).value);
+
+if(isNaN(soNguoi) || soNguoi<=0){
+alert("Nhập số hợp lệ!");
+return;
 }
+
+var tong=gia*soNguoi;
+
+document.getElementById(idKQ).innerHTML="Tổng tiền: "+tong.toLocaleString()+" VNĐ";
+}
+
+/* số người tham gia ngẫu nhiên */
+
+function randomNguoi(){
+
+var ds=["nguoi1","nguoi2","nguoi3","nguoi4","nguoi5"];
+
+ds.forEach(function(id){
+
+var so=Math.floor(Math.random()*10000)+1;
+
+document.getElementById(id).innerHTML="🔥 "+so.toLocaleString()+" người đã tham gia tour";
+
+});
+
+}
+
+/* đăng ký */
 
 function dangKy(){
-    var u=dk_user.value,p=dk_pass.value;
-    if(u==""||p==""){tb.innerHTML="⚠ Nhập đủ thông tin!";tb.style.color="orange";return;}
-    localStorage.setItem("user",u);
-    localStorage.setItem("pass",p);
-    tb.innerHTML="🎉 Đăng ký thành công!";
-    tb.style.color="lime";
+
+var u=document.getElementById("dk_user").value;
+var p=document.getElementById("dk_pass").value;
+
+var tb=document.getElementById("tb");
+
+if(u==""||p==""){
+tb.innerHTML="⚠ Nhập đủ thông tin!";
+tb.style.color="orange";
+return;
 }
 
+localStorage.setItem("user",u);
+localStorage.setItem("pass",p);
+localStorage.setItem("dangNhap","true");
+
+tb.innerHTML="🎉 Đăng ký thành công!";
+tb.style.color="lime";
+
+document.getElementById("accountBtn").innerHTML="Đăng Xuất";
+
+setTimeout(function(){
+showSection("home");
+},1500);
+
+}
+
+/* đăng nhập */
+
 function dangNhap(){
-    var u=dn_user.value,p=dn_pass.value;
-    if(u==localStorage.getItem("user") && p==localStorage.getItem("pass")){
-        tb.innerHTML="✨ Đăng nhập thành công! Đang về Trang Chủ...";
-        tb.style.color="cyan";
-        localStorage.setItem("dangNhap","true");
-        accountBtn.innerHTML="Đăng Xuất";
-        setTimeout(()=>showSection("home"),1500);
-    }else{
-        tb.innerHTML="❌ Sai tài khoản hoặc mật khẩu!";
-        tb.style.color="red";
-    }
+
+var u=document.getElementById("dn_user").value;
+var p=document.getElementById("dn_pass").value;
+
+var tb=document.getElementById("tb");
+
+if(u==localStorage.getItem("user") && p==localStorage.getItem("pass")){
+
+tb.innerHTML="✨ Đăng nhập thành công!";
+tb.style.color="cyan";
+
+localStorage.setItem("dangNhap","true");
+
+document.getElementById("accountBtn").innerHTML="Đăng Xuất";
+
+setTimeout(function(){
+showSection("home");
+},1500);
+
+}else{
+
+tb.innerHTML="❌ Sai tài khoản hoặc mật khẩu!";
+tb.style.color="red";
+
+}
+
+}
+
+/* đăng ký tour */
+
+function dangKyTour(noi){
+
+if(localStorage.getItem("dangNhap")!="true"){
+alert("Bạn cần đăng nhập trước!");
+showSection("login");
+return;
+}
+
+alert("🎉 Bạn đã đăng ký tour "+noi+" thành công!");
+
+}
+
+/* mua tour */
+
+function muaTour(noi){
+
+if(localStorage.getItem("dangNhap")!="true"){
+alert("Bạn cần đăng nhập trước!");
+showSection("login");
+return;
+}
+
+alert("💳 Mua tour "+noi+" thành công!");
+
+}
+
+/* tài khoản */
+
+function moTaiKhoan(){
+
+if(localStorage.getItem("dangNhap")=="true"){
+
+localStorage.setItem("dangNhap","false");
+
+document.getElementById("accountBtn").innerHTML="Tài Khoản";
+
+alert("Bạn đã đăng xuất!");
+
+showSection("home");
+
+}else{
+
+showSection("login");
+
+}
+
 }
 
 window.onload=function(){
-    if(localStorage.getItem("dangNhap")=="true"){
-        accountBtn.innerHTML="Đăng Xuất";
-    }
+
+showSection("home");
+
+randomNguoi();
+
+if(localStorage.getItem("dangNhap")=="true"){
+document.getElementById("accountBtn").innerHTML="Đăng Xuất";
 }
 
-function moTaiKhoan(){
-    if(localStorage.getItem("dangNhap")=="true"){
-        localStorage.setItem("dangNhap","false");
-        accountBtn.innerHTML="Tài Khoản";
-        alert("Bạn đã đăng xuất!");
-        showSection("home");
-    }else{
-        showSection("login");
-    }
 }
+
 </script>
 </head>
 
@@ -194,7 +328,7 @@ function moTaiKhoan(){
 <header>🌏 DU LỊCH CHECK-IN tại VIỆT NAM</header>
 
 <div class="chay-dia-danh">
-🌸 Đà Lạt ✈ Hà Nội 🌊 Nha Trang 🌆 Sài Gòn 🏖 Vũng Tàu 🌸
+🌸 Đà Lạt ✈ Hà Nội 🌊 Nha Trang 🌆 Sài Gòn 🏖 Vũng Tàu
 </div>
 
 <nav>
@@ -227,11 +361,13 @@ function moTaiKhoan(){
 <div class="card">
 <h2>Đà Lạt</h2>
 <img src="dalat.jpg">
-<p><b>Giới thiệu:</b> Thành phố sương mù thuộc Lâm Đồng, khí hậu mát mẻ quanh năm.</p>
-<p><b>Điểm nổi bật:</b> Hồ Xuân Hương, Đồi chè, Thung lũng Tình Yêu.</p>
+<p>Thành phố sương mù nổi tiếng với khí hậu mát mẻ quanh năm.</p>
 <div class="price">Giá tour: 2.500.000 VNĐ / người</div>
-<input type="number" id="sl1" placeholder="Số lượng">
+<p id="nguoi1" style="color:#ff5722;font-weight:bold;"></p>
+<input type="number" id="sl1" placeholder="Số người">
 <button class="book-btn" onclick="tinhTien(2500000,'sl1','kq1')">Tính tiền</button>
+<button class="book-btn" onclick="dangKyTour('Đà Lạt')">Đăng ký tour</button>
+<button class="book-btn" onclick="muaTour('Đà Lạt')">Mua tour</button>
 <p id="kq1"></p>
 </div>
 </section>
@@ -240,11 +376,13 @@ function moTaiKhoan(){
 <div class="card">
 <h2>Hà Nội</h2>
 <img src="hanoi.jpg">
-<p><b>Giới thiệu:</b> Thủ đô nghìn năm văn hiến của Việt Nam.</p>
-<p><b>Địa điểm:</b> Hồ Hoàn Kiếm, Văn Miếu, Lăng Bác.</p>
-<div class="price">Giá tour: 3.000.000 VNĐ / người</div>
-<input type="number" id="sl2">
+<p>Thủ đô nghìn năm văn hiến.</p>
+<div class="price">3.000.000 VNĐ / người</div>
+<p id="nguoi2" style="color:#ff5722;font-weight:bold;"></p>
+<input type="number" id="sl2" placeholder="Số người">
 <button class="book-btn" onclick="tinhTien(3000000,'sl2','kq2')">Tính tiền</button>
+<button class="book-btn" onclick="dangKyTour('Hà Nội')">Đăng ký tour</button>
+<button class="book-btn" onclick="muaTour('Hà Nội')">Mua tour</button>
 <p id="kq2"></p>
 </div>
 </section>
@@ -253,11 +391,13 @@ function moTaiKhoan(){
 <div class="card">
 <h2>Nha Trang</h2>
 <img src="nhatrang.jpg">
-<p><b>Giới thiệu:</b> Thành phố biển nổi tiếng với nước trong xanh.</p>
-<p><b>Hoạt động:</b> Lặn biển, tham quan đảo.</p>
-<div class="price">Giá tour: 3.200.000 VNĐ / người</div>
-<input type="number" id="sl3">
+<p>Thành phố biển nổi tiếng với nước trong xanh.</p>
+<div class="price">3.200.000 VNĐ / người</div>
+<p id="nguoi3" style="color:#ff5722;font-weight:bold;"></p>
+<input type="number" id="sl3" placeholder="Số người">
 <button class="book-btn" onclick="tinhTien(3200000,'sl3','kq3')">Tính tiền</button>
+<button class="book-btn" onclick="dangKyTour('Nha Trang')">Đăng ký tour</button>
+<button class="book-btn" onclick="muaTour('Nha Trang')">Mua tour</button>
 <p id="kq3"></p>
 </div>
 </section>
@@ -266,11 +406,13 @@ function moTaiKhoan(){
 <div class="card">
 <h2>Sài Gòn</h2>
 <img src="saigon.jpg">
-<p><b>Giới thiệu:</b> Trung tâm kinh tế năng động nhất Việt Nam.</p>
-<p><b>Địa điểm:</b> Landmark 81, Chợ Bến Thành.</p>
-<div class="price">Giá tour: 2.800.000 VNĐ / người</div>
-<input type="number" id="sl4">
+<p>Trung tâm kinh tế năng động của Việt Nam.</p>
+<div class="price">2.800.000 VNĐ / người</div>
+<p id="nguoi4" style="color:#ff5722;font-weight:bold;"></p>
+<input type="number" id="sl4" placeholder="Số người">
 <button class="book-btn" onclick="tinhTien(2800000,'sl4','kq4')">Tính tiền</button>
+<button class="book-btn" onclick="dangKyTour('Sài Gòn')">Đăng ký tour</button>
+<button class="book-btn" onclick="muaTour('Sài Gòn')">Mua tour</button>
 <p id="kq4"></p>
 </div>
 </section>
@@ -279,11 +421,13 @@ function moTaiKhoan(){
 <div class="card">
 <h2>Vũng Tàu</h2>
 <img src="vungtau.jpg">
-<p><b>Giới thiệu:</b> Thành phố biển gần TP.HCM, thích hợp du lịch cuối tuần.</p>
-<p><b>Điểm tham quan:</b> Tượng Chúa Kitô, Hải đăng.</p>
-<div class="price">Giá tour: 1.800.000 VNĐ / người</div>
-<input type="number" id="sl5">
+<p>Thành phố biển gần TP.HCM thích hợp du lịch cuối tuần.</p>
+<div class="price">1.800.000 VNĐ / người</div>
+<p id="nguoi5" style="color:#ff5722;font-weight:bold;"></p>
+<input type="number" id="sl5" placeholder="Số người">
 <button class="book-btn" onclick="tinhTien(1800000,'sl5','kq5')">Tính tiền</button>
+<button class="book-btn" onclick="dangKyTour('Vũng Tàu')">Đăng ký tour</button>
+<button class="book-btn" onclick="muaTour('Vũng Tàu')">Mua tour</button>
 <p id="kq5"></p>
 </div>
 </section>
@@ -293,23 +437,26 @@ function moTaiKhoan(){
 <h2>🔐 Tài Khoản Thành Viên</h2>
 
 <h3>Đăng Ký</h3>
-<input type="text" id="dk_user"><br>
-<input type="password" id="dk_pass"><br>
+<input type="text" id="dk_user" placeholder="Tên tài khoản"><br>
+<input type="password" id="dk_pass" placeholder="Mật khẩu"><br>
 <button class="book-btn" onclick="dangKy()">Đăng Ký</button>
 
 <hr>
 
 <h3>Đăng Nhập</h3>
-<input type="text" id="dn_user"><br>
-<input type="password" id="dn_pass"><br>
+<input type="text" id="dn_user" placeholder="Tên tài khoản"><br>
+<input type="password" id="dn_pass" placeholder="Mật khẩu"><br>
 <button class="book-btn" onclick="dangNhap()">Đăng Nhập</button>
 
 <p id="tb"></p>
+
 </div>
 </section>
 
 <footer>
-© 2026 Check-in Việt Nam. Bản quyền thuộc về ĐinhTấnĐức-PhanMinhPhụng-TrầnHuỳnhGiaTấn-NguyễnMinhTú.12A6
+© 2026 Check-in Việt Nam  
+Đinh Tấn Đức - Phan Minh Phụng - Trần Huỳnh Gia Tấn - Nguyễn Minh Tú  
+Lớp 12A6
 </footer>
 
 </body>
